@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>CrosswordsAssorti</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+  </head>
+  <body class="dark">
+    <div id="unity-container" class="unity-desktop">
+      <canvas id="unity-canvas"></canvas>
+    </div>
+    <div id="loading-cover" style="display:none;">
+      <div id="unity-loading-bar">
+        <div id="unity-logo"><img src="logo.png"></div>
+        <div id="unity-progress-bar-empty" style="display: none;">
+          <div id="unity-progress-bar-full"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const buildUrl = "Build";
+      const loaderUrl = buildUrl + "/VkAssorti.loader.js";
+      const config = {
+        dataUrl: buildUrl + "/ff97a08bac9e97df4e5bf289c1ba0384.data.unityweb",
+        frameworkUrl: buildUrl + "/9f21856b38d26c930aacb81b900e89cb.js.unityweb",
+        codeUrl: buildUrl + "/226f9f02661662f3570d9d8395caee4c.wasm.unityweb",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "crossman",
+        productName: "CrosswordsAssorti",
+        productVersion: "1.0.3",
+      };
+
+      const container = document.querySelector("#unity-container");
+      const canvas = document.querySelector("#unity-canvas");
+      const loadingCover = document.querySelector("#loading-cover");
+      const progressBarEmpty = document.querySelector("#unity-progress-bar-empty");
+      const progressBarFull = document.querySelector("#unity-progress-bar-full");
+
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        container.className = "unity-mobile";
+      }
+
+      loadingCover.style.display = "";
+
+      const script = document.createElement("script");
+	  var UnityI = null;				 
+      script.src = loaderUrl;
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+          progressBarEmpty.style.display = "";
+          progressBarFull.style.width = `${100 * progress}%`;
+        }).then((unityInstance) => {
+		  unityI = unityInstance;loadingCover.style.display = "none";
+        }).catch((message) => {
+          alert(message);
+        });
+      };
+      document.body.appendChild(script);
+	  
+        window.addEventListener('pointerdown', () => {
+            window.focus()
+            canvas.focus()
+            })
+
+    </script>
+	
+    <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+
+    <script type="text/javascript">
+
+      vkBridge.send('VKWebAppInit');
+      vkBridge.send('VKWebAppShowNativeAds',{ad_format:"interstitial"}).then(data => {
+        console.log(data);});
+
+      function showFullscrenAd(){
+        vkBridge.send('VKWebAppShowNativeAds',{ad_format:"interstitial"}).then(data => {
+          console.log(data);});
+      }
+
+      function showRewardedAd(){
+        vkBridge.send('VKWebAppShowNativeAds',{ad_format:"reward"}).then(data => {
+          console.log(data);
+          unityI.SendMessage('YandexSDK', 'RewardGetting',JSON.stringify(data.result));})
+      }
+	  
+	  function GetFriends(){
+   	    vkBridge.send("VKWebAppShowInviteBox", {})
+         .then(data => console.log(data.success))  
+        .catch(error => console.log(error));
+	  }
+
+    </script>
+
+  </body>
+</html>
