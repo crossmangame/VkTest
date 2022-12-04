@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>WebWordMaze</title>
+    <title>WebSudoku</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
   </head>
@@ -23,15 +23,15 @@
 
     <script>
       const buildUrl = "Build";
-      const loaderUrl = buildUrl + "/VkWordMaze.loader.js";
+      const loaderUrl = buildUrl + "/VkSudoku.loader.js";
       const config = {
-        dataUrl: buildUrl + "/VkWordMaze.data.unityweb",
-        frameworkUrl: buildUrl + "/VkWordMaze.framework.js.unityweb",
-        codeUrl: buildUrl + "/VkWordMaze.wasm.unityweb",
+        dataUrl: buildUrl + "/VkSudoku.data.unityweb",
+        frameworkUrl: buildUrl + "/VkSudoku.framework.js.unityweb",
+        codeUrl: buildUrl + "/VkSudoku.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "Crossman",
-        productName: "WebWordMaze",
-        productVersion: "1.0.3",
+        productName: "WebSudoku",
+        productVersion: "1.2.1",
       };
 
       const container = document.querySelector("#unity-container");
@@ -83,7 +83,7 @@
       function showRewardedAd(){
         vkBridge.send('VKWebAppShowNativeAds',{ad_format:"reward"}).then(data => {
           console.log(data);
-          unityI.SendMessage('AdsSDK', 'RewardGetting',JSON.stringify(data.result));})
+          unityI.SendMessage('YandexSDK', 'RewardGetting',JSON.stringify(data.result));})
       }
 	  
 	  function GetFriends(){
