@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>WebSudoku</title>
+    <title>CrosswordsAssorti</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
   </head>
@@ -23,15 +23,15 @@
 
     <script>
       const buildUrl = "Build";
-      const loaderUrl = buildUrl + "/VkSudoku.loader.js";
+      const loaderUrl = buildUrl + "/VkAssoc.loader.js";
       const config = {
-        dataUrl: buildUrl + "/VkSudoku.data.unityweb",
-        frameworkUrl: buildUrl + "/VkSudoku.framework.js.unityweb",
-        codeUrl: buildUrl + "/VkSudoku.wasm.unityweb",
+        dataUrl: buildUrl + "/VkAssoc.data.unityweb",
+        frameworkUrl: buildUrl + "/VkAssoc.framework.js.unityweb",
+        codeUrl: buildUrl + "/VkAssoc.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
-        companyName: "Crossman",
-        productName: "WebSudoku",
-        productVersion: "1.2.2",
+        companyName: "crossman",
+        productName: "CrosswordsAssorti",
+        productVersion: "1.0.2",
       };
 
       const container = document.querySelector("#unity-container");
@@ -73,6 +73,7 @@
     <script type="text/javascript">
 
       vkBridge.send('VKWebAppInit');
+//	  vkBridge.send('VKWebAppShowNativeAds',{ad_format:"interstitial"})
 
 
       function showFullscrenAd(){
@@ -83,7 +84,7 @@
       function showRewardedAd(){
         vkBridge.send('VKWebAppShowNativeAds',{ad_format:"reward"}).then(data => {
           console.log(data);
-          unityI.SendMessage('YandexSDK', 'RewardGetting',JSON.stringify(data.result));})
+          unityI.SendMessage('AdsSDK', 'RewardGetting',JSON.stringify(data.result));})
       }
 	  
 	  function GetFriends(){
