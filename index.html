@@ -84,7 +84,7 @@
       function showRewardedAd(){
         vkBridge.send('VKWebAppShowNativeAds',{ad_format:"reward"}).then(data => {
           console.log(data);
-          unityI.SendMessage('YandexSDK', 'RewardGetting',JSON.stringify(data.result));})
+          unityI.SendMessage('AdsSDK', 'RewardGetting',JSON.stringify(data.result));})
       }
 	  
 	  function GetFriends(){
